@@ -25,3 +25,9 @@ Repo maintained by Travis Rillos.
 --App 9: Django & Bootstrap Blog and Translator App
 
 --App 10: Build a Geography Web App with Flask and Pandas
+
+--Bonus App: Building an English Thesaurus
+
+--Bonus App: Building a Website Blocker
+
+--Bonus App: Data Visualization with Bokeh
