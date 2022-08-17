@@ -41,6 +41,10 @@ for lt, ln, el, name in zip(lat, lon, elev, name):
     fg.add_child(folium.CircleMarker(location=[lt, ln], radius=6, popup=folium.Popup(iframe), fill_color=color_producer(el), color='grey', fill_opacity=0.7))
 
 
+# This section adds polygon layer for population map
+fg.add_child(folium.GeoJson(data=(open("world.json", 'r', encoding='utf-8-sig').read())))
+
+
 # This line adds the whole feature group at once
 map.add_child(fg)
 
