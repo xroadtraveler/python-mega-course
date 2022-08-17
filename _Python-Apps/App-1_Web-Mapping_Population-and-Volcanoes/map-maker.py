@@ -17,6 +17,15 @@ Volcano name:<br>
 Height: %s m
 """
 
+# Function to change the Map Marker color based on elevation
+def color_producer(elevation):
+    if elevation < 1500:
+        return 'green'
+    elif 1500 <= elevation < 3000:
+        return 'orange'
+    else:
+        return 'red'
+
 
 # This section creates our initial map object
 map = folium.Map(location=[47.60, -122.33], zoom_start=6, tiles="Stamen Terrain")
@@ -29,7 +38,7 @@ fg = folium.FeatureGroup(name="My Map")
 # This section adds Marker Point coordinates, other data to map
 for lt, ln, el, name in zip(lat, lon, elev, name):
     iframe = folium.IFrame(html=html % (name, name, el), width=200, height=100)
-    fg.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(iframe), icon=folium.Icon(color='green')))
+    fg.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(iframe), icon=folium.Icon(color=color_producer(el))))
 
 
 # This line adds the whole feature group at once
