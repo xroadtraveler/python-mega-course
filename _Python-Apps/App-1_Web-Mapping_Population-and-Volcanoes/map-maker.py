@@ -31,26 +31,36 @@ def color_producer(elevation):
 map = folium.Map(location=[47.60, -122.33], zoom_start=6, tiles="Stamen Terrain")
 
 
-# This line creates a single feature group to input all the children into our map
-fg = folium.FeatureGroup(name="My Map")
+# This line creates a feature group for volcanoes
+fgv = folium.FeatureGroup(name="Volcanoes")
 
 
 # This section adds Marker Point coordinates, other data to map
 for lt, ln, el, name in zip(lat, lon, elev, name):
     iframe = folium.IFrame(html=html % (name, name, el), width=200, height=100)
-    fg.add_child(folium.CircleMarker(location=[lt, ln], radius=6, popup=folium.Popup(iframe), 
+    fgv.add_child(folium.CircleMarker(location=[lt, ln], radius=6, 
+    popup=folium.Popup(iframe), 
     fill_color=color_producer(el), color='grey', fill_opacity=0.7))
 
 
+# This line creates a feature group for population
+fgp = folium.FeatureGroup(name="Population")
+
+
 # This section adds polygon layer for population map
-fg.add_child(folium.GeoJson(data=open("world.json", 'r', encoding='utf-8-sig').read(), 
+fgp.add_child(folium.GeoJson(data=open("world.json", 'r', encoding='utf-8-sig').read(), 
 style_function=lambda x: {'fillColor':'green' if x['properties']['POP2005'] < 10000000 
 else 'yellow' if 10000000 <= x['properties']['POP2005'] < 20000000
 else 'orange' if 20000000 <= x['properties']['POP2005'] < 30000000 
 else 'red'}))
 
 
-# This line adds the whole feature group at once
-map.add_child(fg)
+# This line adds the feature groups for volcanoes and for population
+map.add_child(fgv)
+map.add_child(fgp)
+
+
+# This section adds layer-control functionality to map
+map.add_child(folium.LayerControl())
 
 map.save("Map1.html")
