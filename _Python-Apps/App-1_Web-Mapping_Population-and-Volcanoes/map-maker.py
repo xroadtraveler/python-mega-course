@@ -2,10 +2,11 @@ import pandas
 import folium
 
 
-# This section extracts latitude and longitude from 'Volcanoes.csv'
+# This section extracts data from 'Volcanoes.csv' to iterate into map
 data = pandas.read_csv("Volcanoes.csv")
 lat = list(data["LAT"])
 lon = list(data["LON"])
+elev = list(data["ELEV"])
 
 
 # This section creates our initial map object
@@ -16,9 +17,9 @@ map = folium.Map(location=[47.60, -122.33], zoom_start=6, tiles="Stamen Terrain"
 fg = folium.FeatureGroup(name="My Map")
 
 
-# This section iterates over coordinates to add Marker Points to map
-for lt, ln in zip(lat, lon):
-    fg.add_child(folium.Marker(location=[lt, ln], popup="Hi I am a Marker", icon=folium.Icon(color='green')))
+# This section adds Marker Point coordinates, other data to map
+for lt, ln, el in zip(lat, lon, elev):
+    fg.add_child(folium.Marker(location=[lt, ln], popup=str(el)+"m", icon=folium.Icon(color='green')))
 
 
 # This line adds the whole feature group at once
