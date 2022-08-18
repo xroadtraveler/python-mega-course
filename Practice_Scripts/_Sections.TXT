@@ -3,3 +3,6 @@ Section 5:
 
 Section 8:
 -- textpro.py
+
+Section 17:
+-- image-resizer.py
