@@ -1,8 +1,24 @@
+Sections Directory for Practice Programs:
+
 Section 5:
 -- mean-function.py
+   --Basic function for finding an average.
+
 
 Section 8:
 -- textpro.py
+   --Takes user input phrases, outputs capitalized phrases with proper punctuation.
+
 
 Section 17:
 -- image-resizer.py
+   -- Resizes a single image in relative-path directory.
+
+-- batch-image-resizer.py
+   --Resizes a batch of images in same directory.
+
+-- facial-recognition.py
+   --Basic facial recognition program, prints image with face marked with rectangle.
+
+-- capture.py
+   --Basic video capture program.
