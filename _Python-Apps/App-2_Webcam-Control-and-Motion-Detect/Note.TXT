@@ -1,0 +1,15 @@
+FutureWarning Error:
+Running program throws "FutureWarning" error when appending to the pandas DataFrame.
+
+Warning reads:
+"FutureWarning: The frame.append method is deprecated and will be removed 
+from pandas in a future version. Use pandas.concat instead."
+
+
+As this is just a practice program for a Udemy class, I'm not going to fix this right
+away.  Couldn't find a simple solution online that worked with my existing code, and
+I'd rather just continue my progress with the class.  
+
+If I set up a motion-tracking camera program in the future, I'll look into it more
+seriously, and possibly build more from scratch using more recent examples.  But
+for now, I'll leave it as is.
