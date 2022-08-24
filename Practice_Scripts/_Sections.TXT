@@ -22,3 +22,7 @@ Section 17:
 
 -- capture.py
    --Basic video capture program.
+
+
+Section 19:
+-- Lots of practice using Bokeh with Jupyter Notebook (VSCode .py versions added as well)
