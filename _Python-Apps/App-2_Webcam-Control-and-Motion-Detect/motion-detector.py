@@ -15,7 +15,7 @@ while True:
 
     # Creates grayscale version and applies Gaussian blur
     gray=cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray=cv2.GaussianBlur(gray, (21, 21,), 0)
+    gray=cv2.GaussianBlur(gray, (21, 21), 0)
 
     # If first time running, uses first image as the Background Frame
     if first_frame is None:
