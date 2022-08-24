@@ -43,6 +43,9 @@ while True:
     status_list.append(status)
 
 
+    # For memory-saving, we only want the last two items at any given time
+    status_list = status_list[-2:]
+
     # Records date-times for status changes
     if status_list[-1] == 1 and status_list[-2] == 0:
         times.append(datetime.now())
