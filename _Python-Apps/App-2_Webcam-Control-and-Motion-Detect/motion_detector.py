@@ -35,7 +35,7 @@ while True:
     (cnts,_) = cv2.findContours(thresh_frame.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     for contour in cnts:
-        if cv2.contourArea(contour) < 10000:
+        if cv2.contourArea(contour) < 5000: # <-- ***Change this to troubleshoot motion sensitivity***
             continue
         status = 1
         (x, y, w, h) = cv2.boundingRect(contour)
@@ -76,6 +76,8 @@ for i in range(0, len(times), 2):
     df=df.append({"Start":times[i], "End": times[i+1]}, ignore_index=True)
 
 df.to_csv("Times.csv")
+
+
 
 video.release()
 cv2.destroyAllWindows
