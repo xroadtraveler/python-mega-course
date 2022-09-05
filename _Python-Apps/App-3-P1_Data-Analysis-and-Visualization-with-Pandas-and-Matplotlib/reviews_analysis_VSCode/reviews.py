@@ -73,4 +73,72 @@ print()
 """
 
 ## 4. Time-based filtering
+"""
 print(data[(data['Timestamp'] >= datetime(2020, 7, 1, tzinfo=utc)) & (data['Timestamp'] < datetime(2020, 12, 31, tzinfo=utc))])
+"""
+
+
+## 5. From data to information
+
+### Average rating
+"""
+print(data['Rating'].mean())
+print()
+"""
+
+### Average rating for a particular course
+"""
+print(data[data['Course Name']=='The Python Mega Course: Build 10 Real World Applications']['Rating'].mean())
+print()
+"""
+
+### Average rating for a particular period
+"""
+print(data[(data['Timestamp'] > datetime(2020, 1, 1, tzinfo=utc)) &
+     (data['Timestamp'] < datetime(2020, 12, 31, tzinfo=utc))]['Rating'].mean())
+print()
+"""
+
+### Average rating for a particular period for a particular course
+"""
+print(data[(data['Timestamp'] > datetime(2020, 1, 1, tzinfo=utc)) &
+     (data['Timestamp'] < datetime(2020, 12, 31, tzinfo=utc)) &
+    (data['Course Name']=='The Python Mega Course: Build 10 Real World Applications')
+    ]['Rating'].mean())
+print()
+    """
+
+### Average of uncommented ratings
+"""
+print(data[data['Comment'].isnull()]['Rating'].mean())
+print()
+"""
+
+### Average of commented ratings
+"""
+print(data[data['Comment'].notnull()]['Rating'].mean())
+print()
+"""
+
+### Number of uncommented ratings
+"""
+print(data[data['Comment'].isnull()]['Rating'].count())
+print()
+"""
+
+### Number of commented ratings
+"""
+print(data[data['Comment'].notnull()]['Rating'].count())
+print()
+"""
+
+### Number of comments containing a certain word
+print(data[data['Comment'].str.contains('accent', na=False)])
+print()
+print(data[data['Comment'].str.contains('accent', na=False)]['Comment'].count())
+print()
+
+### Average of commented ratings with “accent” in the comment
+print(data[data['Comment'].str.contains('accent', na=False)]['Rating'].mean())
+print()
+
