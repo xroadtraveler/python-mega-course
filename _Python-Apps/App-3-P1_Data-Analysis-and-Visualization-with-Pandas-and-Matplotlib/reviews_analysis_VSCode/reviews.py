@@ -1,8 +1,10 @@
 ## 1. Overview of the dataframe
 import pandas
+from datetime import datetime
+from pytz import utc
 import matplotlib.pyplot as plt
 
-data = pandas.read_csv("reviews.csv")
+data = pandas.read_csv("reviews.csv", parse_dates=['Timestamp'])
 
 df = pandas.DataFrame(data)
 
@@ -65,5 +67,10 @@ print()
 """
 
 ### Multiple conditions
+"""
 print(data[(data['Rating'] > 4) & (data['Course Name'] == 'The Complete Python Course: Build 10 Professional OOP Apps')]['Rating'].mean())
 print()
+"""
+
+## 4. Time-based filtering
+print(data[(data['Timestamp'] >= datetime(2020, 7, 1, tzinfo=utc)) & (data['Timestamp'] < datetime(2020, 12, 31, tzinfo=utc))])
