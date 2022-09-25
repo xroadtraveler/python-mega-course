@@ -2,12 +2,10 @@ import justpy as jp
 import pandas
 from datetime import datetime
 from pytz import utc
-import matplotlib.pyplot as plt
-
 
 data = pandas.read_csv("reviews.csv", parse_dates=['Timestamp'])
-data['Day'] = data['Timestamp'].dt.date
-day_average = data.groupby(['Day']).mean()
+data['Week'] = data['Timestamp'].dt.strftime('%Y-%U')
+week_average = data.groupby(['Week']).mean()
 
 chart_def = """
 {
@@ -19,7 +17,7 @@ chart_def = """
         text: 'Analysis of Course Reviews'
     },
     subtitle: {
-        text: 'Average Rating by Day'
+        text: 'Average Rating by Week'
     },
     xAxis: {
         reversed: false,
@@ -31,7 +29,7 @@ chart_def = """
             format: '{value}'
         },
         accessibility: {
-            rangeDescription: 'Range: 2018-01-01 to 2021-03-19.'
+            rangeDescription: 'Range: 2018-00 to 2021-12.'
         },
         maxPadding: 0.05,
         showLastLabel: true
@@ -53,7 +51,7 @@ chart_def = """
     },
     tooltip: {
         headerFormat: '<b>{series.name}</b><br/>',
-        pointFormat: 'Day {point.x}: {point.y}'
+        pointFormat: 'Week {point.x}: {point.y}'
     },
     plotOptions: {
         spline: {
@@ -75,10 +73,10 @@ def app():
     h1 = jp.QDiv(a=wp, text="Analysis of Course Reviews", classes="text-h3 text-center q-pa-md")
     p1 = jp.QDiv(a=wp, text="These graphs represent course review analysis")
     hc = jp.HighCharts(a=wp, options=chart_def)
-    hc.options.title.text = "Average Rating by Day"
+    hc.options.title.text = "Average Rating by Week"
 
-    hc.options.xAxis.categories = list(day_average.index)
-    hc.options.series[0].data = list(day_average['Rating'])
+    hc.options.xAxis.categories = list(week_average.index)
+    hc.options.series[0].data = list(week_average['Rating'])
 
     return wp
 
