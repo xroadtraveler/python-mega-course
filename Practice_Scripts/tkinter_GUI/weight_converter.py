@@ -3,18 +3,21 @@ from tkinter import *
 window = Tk()
 
 def kg_to_grams():
-    print(e1_value.get()) # for testing
+    # print(e1_value.get()) # for testing
     grams = float(e1_value.get()) * 1000
+    t1.delete("1.0", END)
     t1.insert(END, grams)
 
 def kg_to_pounds():
-    print(e1_value.get()) # for testing
+    # print(e1_value.get()) # for testing
     pounds = float(e1_value.get()) * 2.20462
+    t2.delete("1.0", END)
     t2.insert(END, pounds)
 
 def kg_to_ounces():
-    print(e1_value.get()) # for testing
+    # print(e1_value.get()) # for testing
     ounces = float(e1_value.get()) * 35.274
+    t3.delete("1.0", END)
     t3.insert(END, ounces)
 
 l1 = Label(window, text="Kg")
