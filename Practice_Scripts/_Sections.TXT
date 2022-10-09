@@ -26,3 +26,6 @@ Section 17:
 
 Section 19:
 -- Lots of practice using Bokeh with Jupyter Notebook (VSCode .py versions added as well)
+
+Section 23:
+--tkinter_GUI apps
