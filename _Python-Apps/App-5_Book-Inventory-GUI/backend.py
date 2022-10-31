@@ -55,6 +55,6 @@ connect()
 
 # For testing:
 #insert("The Sun", "John Smith", 1918, 913123132)
-update(3, "The Moon", "John Smith", 1917, 99999)
-print(view())
-print(search(author="John Smith"))
+#update(3, "The Moon", "John Smith", 1917, 99999)
+#print(view())
+#print(search(author="John Smith"))
