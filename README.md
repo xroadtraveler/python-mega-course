@@ -3,6 +3,13 @@ A repo to store notes and programs created while taking Python Mega-Course taugh
 
 Repo maintained by Travis Rillos.
 
+#####
+NOTE: As of 11/4/2022, he has replaced the original course with a new one. The original course content was
+pushed to the end (the old course material now begins in Section 41-42). I will continue with the old
+version of the course through a link he provided, and then go through the new course content in
+a separate repository.
+#####
+
 
 
 --App 1: Web Mapping with Python: Interactive Mapping of Population and Volcanoes
