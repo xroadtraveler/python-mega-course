@@ -5,7 +5,7 @@
             cols: 1
             padding: 15, 15
             spacing: 20, 20
-            Label: 
+            Label:
                 text: "User Login"
                 font_size: '30sp'
             TextInput:
@@ -77,7 +77,7 @@
                 size_hint: 0.3, 0.55
                 pos_hint: {'center_x': 0.5, 'center_y': 0.6}
 
-<SignUpScreenSuccess>
+<SignUpScreenSuccess>:
     GridLayout:
         cols: 1
         Label:
@@ -89,25 +89,33 @@
 <LoginScreenSuccess>:
     GridLayout:
         cols: 1
-        paddng: 30, 30
-        spacing: 30, 30
-        RelativeLayout:
-            ImageButton:
-                on_press: root.log_out()
-                source: 'logout_hover.png' if self.hovered else "logout_nothover.png"
-                size_hint: 0.35, 0.35
-                pos_hint: {'center_x': 0.93, 'center_y': 0.8}
-        Label:
-            text: "How do you feel?"
-        TextInput:
-            id: feeling
-            hint_text: "Things to try: happy, sad, unloved..."
-        Button:
-            text: "Enlighten me"
-            on_press: root.get_quote(root.ids.feeling.text)
-        Label: 
-            id: quote
-            text: ""
+        padding: 25, 25
+        spacing: 25, 25
+        GridLayout:
+            cols: 1
+            paddng: 25, 25
+            spacing: 25, 25
+            RelativeLayout:
+                ImageButton:
+                    on_press: root.log_out()
+                    source: 'logout_hover.png' if self.hovered else "logout_nothover.png"
+                    size_hint: 0.35, 0.35
+                    pos_hint: {'center_x': 0.83, 'center_y': 0.8}
+            Label:
+                text: "How do you feel?"
+            TextInput:
+                id: feeling
+                hint_text: "Things to try: happy, sad, unloved..."
+            Button:
+                text: "Enlighten me"
+                on_press: root.get_quote(root.ids.feeling.text)
+            ScrollView:
+                Label:
+                    id: quote
+                    text: ""
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: self.texture_size[1]
 
 <RootWidget>:
     LoginScreen:
