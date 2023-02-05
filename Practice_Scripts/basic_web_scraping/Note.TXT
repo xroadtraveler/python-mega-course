@@ -1,0 +1,5 @@
+
+From Section 29: Web Scraping with Python & Beautiful Soup:
+
+In the course video for this section, he did everything in Jupyter Notebook.  However, I'm also
+including a copy done in VSCode, that I used to more easily copy/paste code to my written notes.
