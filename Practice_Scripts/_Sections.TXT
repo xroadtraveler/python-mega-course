@@ -34,3 +34,8 @@ Section 23:
 
 Section 24:
 --SQLite practice code ("interacting-with-databases")
+
+
+Section 29:
+--web_scraping.py
+--Jupyter Notebook versions of same
