@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from send_email import send_email
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:postgres123@localhost/height_collector'
@@ -24,8 +25,8 @@ def success():
     if request.method=='POST':
         email=request.form["email_name"]
         height=request.form["height_name"]
-        print(email)
-        print(height)
+#        print(email, height)
+        send_email(email, height)
         if db.session.query(Data).filter(Data.email_ == email).count() == 0:
             data=Data(email, height)
             db.session.add(data)
