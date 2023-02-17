@@ -23,10 +23,16 @@ def index():
 def success():
     if request.method=='POST':
         email=request.form["email_name"]
-#        print(email)
         height=request.form["height_name"]
-#        print(height)
-        return render_template("success.html")
+        print(email)
+        print(height)
+        if db.session.query(Data).filter(Data.email_ == email).count() == 0:
+            data=Data(email, height)
+            db.session.add(data)
+            db.session.commit()
+            return render_template("success.html")
+    return render_template("index.html", 
+        text="Seems like you've input an already-existing email.")
 
 if __name__ == '__main__':
     app.debug=True
