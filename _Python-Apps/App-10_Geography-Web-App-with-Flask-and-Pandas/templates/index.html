@@ -4,16 +4,21 @@
     <head>
         <link href="../static/main.css" rel="stylesheet">
     </head>
-        <body>
-            <div class="container">
-                <h1>Super Geocoder</h1>
-                <h3>Please upload you CSV file. The values containing addresses should be in a column named <i>address</i> or <i>Address</i></h3>
-
-                <form action="/" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file">
-                    <button type="submit"> Submit </button>
-                </form>
-                <br>
+    <body>
+        <div class="container">
+            <h1>Super Geocoder</h1>
+            <h3>Please upload your CSV file. The values containing addresses should be in a column named <em>address</em> or <em>Address</em></h3>
+            <form action="{{url_for('success')}}" method="POST" enctype="multipart/form-data">
+                <input type="file" accept=".csv" name="file" />
+                <button type="submit"> Submit </button>
+            </form>
+        <br>
+            <div class="output">
+                {{text|safe}}
+                {% if btn is defined %}
+                    {% include btn ignore missing %}
+                {% endif %}
             </div>
-        </body>
+        </div>
+    </body>
 </html>
