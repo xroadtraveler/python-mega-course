@@ -1,43 +1,57 @@
 from flask import Flask, render_template, request, send_file
 import pandas as pd
-from werkzeug.utils import secure_filename
-from geopy.geocoders import ArcGIS 
+from geopy.geocoders import ArcGIS
 
 
 app=Flask(__name__)
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def index():
-    if request.method == 'POST':
-        file = request.files['file']
+    return render_template("index.html")
 
+
+@app.route('/success', methods=['POST'])
+def success():
+        if request.method == 'POST':
+        # Get the file from the form
+            file = request.files['file']
+        
         if file:
+            # Read the CSV file into a Pandas DataFrame
             df = pd.read_csv(file)
+
+            # Check if the DataFrame has an "address" or "Address" column
             if 'address' in df.columns:
                 address_col = 'address'
             elif 'Address' in df.columns:
                 address_col = 'Address'
             else:
-                return 'Error: Please make sure you have an address column in your CSV file!'
-            geolocator = ArcGIS(user_agent='my_app')
-            df["Coordinates"]=df[address_col].apply(geolocator.geocode)
-            df["Latitude"]=df["Coordinates"].apply(lambda x: x.latitude if x != None else None)
-            df["Longitude"]=df["Coordinates"].apply(lambda y: y.longitude if y != None else None)
-            df.to_csv('Lat-Long_Address.csv', index=False)
-            return df.to_json(orient='records')
-        else:
-            'No file selected'
+                return render_template("index.html", text="Please make sure you have an address column in your CSV file!")
+            
+            # Geocode the addresses using the ArcGIS geocoder
+            geolocator = ArcGIS()
+            df["locations"]=df[address_col].apply(geolocator.geocode)
 
-    return render_template("index.html")
+            # Extract the latitude and longitude from locations
+            df["Latitude"]=df["locations"].apply(lambda x: x.latitude if x != None else None)
+            df["Longitude"]=df["locations"].apply(lambda y: y.longitude if y != None else None)
+
+            # Sends to CSV
+            df.to_csv("geocoded/geocoded.csv", index=None)
+
+            # Render the updated DataFrame in the HTML table
+            return render_template('index.html', text=df.to_html(border=1), btn='download.html')
+        
+        else:
+            return render_template('index.html')
 
 
 @app.route("/downoad")
 def download():
-    return send_file("Lat-Long_Address.csv", as_attachment=True)
+    return send_file("geocoded/geocoded.csv", download_name='yourfile.csv', as_attachment=True)
 
 
 
 if __name__ == '__main__':
-    app.debug=True
-    app.run()
+    app.run(debug=True)
