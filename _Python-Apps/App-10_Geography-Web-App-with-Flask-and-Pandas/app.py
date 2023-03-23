@@ -16,32 +16,35 @@ def success():
         if request.method == 'POST':
         # Get the file from the form
             file = request.files['file']
+            try:
         
-        if file:
-            # Read the CSV file into a Pandas DataFrame
-            df = pd.read_csv(file)
+                if file:
+                    # Read the CSV file into a Pandas DataFrame
+                    df = pd.read_csv(file)
 
-            # Check if the DataFrame has an "address" or "Address" column
-            if 'address' in df.columns:
-                address_col = 'address'
-            elif 'Address' in df.columns:
-                address_col = 'Address'
-            else:
+                    # Check if the DataFrame has an "address" or "Address" column
+                    if 'address' in df.columns:
+                        address_col = 'address'
+                    elif 'Address' in df.columns:
+                        address_col = 'Address'
+                    else:
+                        return render_template("index.html", text="Please make sure you have an address column in your CSV file!")
+                    
+                    # Geocode the addresses using the ArcGIS geocoder
+                    geolocator = ArcGIS()
+                    df["locations"]=df[address_col].apply(geolocator.geocode)
+
+                    # Extract the latitude and longitude from locations
+                    df["Latitude"]=df["locations"].apply(lambda x: x.latitude if x != None else None)
+                    df["Longitude"]=df["locations"].apply(lambda y: y.longitude if y != None else None)
+
+                    # Sends to CSV
+                    df.to_csv("geocoded/geocoded.csv", index=None)
+
+                    # Render the updated DataFrame in the HTML table
+                    return render_template('index.html', text=df.to_html(border=1), btn='download.html')
+            except:
                 return render_template("index.html", text="Please make sure you have an address column in your CSV file!")
-            
-            # Geocode the addresses using the ArcGIS geocoder
-            geolocator = ArcGIS()
-            df["locations"]=df[address_col].apply(geolocator.geocode)
-
-            # Extract the latitude and longitude from locations
-            df["Latitude"]=df["locations"].apply(lambda x: x.latitude if x != None else None)
-            df["Longitude"]=df["locations"].apply(lambda y: y.longitude if y != None else None)
-
-            # Sends to CSV
-            df.to_csv("geocoded/geocoded.csv", index=None)
-
-            # Render the updated DataFrame in the HTML table
-            return render_template('index.html', text=df.to_html(border=1), btn='download.html')
         
         else:
             return render_template('index.html')
