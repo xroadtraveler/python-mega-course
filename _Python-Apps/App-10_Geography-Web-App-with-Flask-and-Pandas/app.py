@@ -36,6 +36,7 @@ def success():
         # Extract the latitude and longitude from locations
         df["Latitude"]=df["locations"].apply(lambda x: x.latitude if x != None else None)
         df["Longitude"]=df["locations"].apply(lambda y: y.longitude if y != None else None)
+        df=df.drop("locations", 1)
 
         # Use datetime to generate unique filename for concurrent processing
         filename = dt.datetime.now().strftime("geocoded/%Y-%m-%d-%H-%M-%S-%f" + ".csv")
