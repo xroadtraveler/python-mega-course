@@ -12,10 +12,18 @@ def define(word):
     if word in data:
         return data[word]
     
+    # Handles cases for proper nouns, such as city names
+    elif word.title() in data:
+        return data[word.title()]
+    
+    # Handles acronyms such as USA or NATO
+    elif word.upper() in data:
+        return data[word.upper()]
+    
     # Search similar words in the case of a typo
     # Check that similar words exist by checking for empty returned lists
     elif len(get_close_matches(word, data.keys())) > 0:
-        # Set user input (Y/N) to a variable, prompt user to confirm whether suggested word was their word
+        # Set user input (Y/N) to a variable 'yn', prompt user to confirm whether suggested word was their word
         yn = input("Did you mean %s instead? Enter 'Y' if yes, or 'N' if no: " % get_close_matches(word, data.keys(), cutoff=0.8)[0])
         if yn.upper() == "Y":
             return data[get_close_matches(word, data.keys(), cutoff=0.8)[0]]
@@ -29,5 +37,15 @@ def define(word):
 # Prompts user to input a word to be defined
 word = input("Enter word: ")
 
-# Prints resulting definition of user input
-print(define(word))
+# Runs 'define' on a word, stores the output in a variable that we can iterate through
+output = define(word)
+
+# Check if output is 'list'
+if type(output) == list:
+    # Loop through 'output' and print each item on a separate line
+    for item in output:
+        print(item)
+# Check if output type is 'string'
+else:
+    # Print string output
+    print(output)
