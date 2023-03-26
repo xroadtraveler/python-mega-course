@@ -1,10 +1,13 @@
 import json
+import difflib
+from difflib import get_close_matches
 
 data = json.load(open("data.json"))
 
 def define(word):
-    if word.lower() in data:
-        return data[word.lower()]
+    word = word.lower()
+    if word in data:
+        return data[word]
     else:
         return "The word doesn’t exist. Please double check it."
 
