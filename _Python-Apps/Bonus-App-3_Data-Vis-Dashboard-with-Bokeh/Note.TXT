@@ -1,0 +1,9 @@
+
+As of 4/14/2023, it seems that the "pandas_datareader" library no longer works as shown in this section's
+lectures.  Even though I've tried pouring over the current documentation, I can't get the data_source argument
+to take either data_source="yahoo" or data_source="google", or any similar variation, without the program
+simple returning an error.  
+
+Perhaps I'll revisit this someday, but for now I'm just going to transcribe the remaining lectures of the course
+into my notes as best I can, with outdated instructions from 2016.  I have other courses I need to move onto, and
+this is a Bonus App at any rate.  
